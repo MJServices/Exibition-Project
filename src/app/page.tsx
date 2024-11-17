@@ -3,7 +3,7 @@ import Intro from "@/components/Intro"
 import { useState } from "react"
 
 const page = () => {
-  const [childData, setChildData] = useState(null)
+  const [childData, setChildData] = useState(null);
 
   const handleDataFromChild = (data: any) => {
     setChildData(data)
