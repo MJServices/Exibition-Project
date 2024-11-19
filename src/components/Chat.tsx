@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import useSound from "use-sound";
 
-function Chat() {
+function Chat({onChatEnd}: any) {
   const [messages, setMessages] = useState<
     Array<{ text: string; sender: string; delay: number }>
   >([]);
@@ -18,11 +18,21 @@ function Chat() {
   });
 
   const scenarioMessages = [
-    { text: "Hello ! Ayan bhai", sender: "bot", delay: 1000 },
-    { text: "Exibition kai din kareeb hai", sender: "bot", delay: 1000 },
-    { text: "Hum participate kare hai", sender: "bot", delay: 1000 },
-    { text: "Bohot maza ae ga", sender: "bot", delay: 1000 },
-    { text: "Chal aja", sender: "bot", delay: 1000 },
+    { text: "Hello ! Ayan bhai", data: null, sender: "bot", delay: 1000 },
+    {
+      text: "Exibition kai din kareeb hai",
+      data: null,
+      sender: "bot",
+      delay: 1000,
+    },
+    {
+      text: "Hum participate kare hai",
+      data: null,
+      sender: "bot",
+      delay: 1000,
+    },
+    { text: "Bohot maza ae ga", data: null, sender: "bot", delay: 1000 },
+    { text: "Chal aja", data: false, sender: "bot", delay: 1000 },
   ];
 
   const scenarioChoices = [
@@ -31,7 +41,10 @@ function Chat() {
   ];
 
   useEffect(() => {
-    if (currentStep < scenarioMessages.length) {
+    if (
+      currentStep < scenarioMessages.length ||
+      scenarioMessages[4].data !== false
+    ) {
       setIsTyping(true);
       const timer = setTimeout(() => {
         setIsTyping(false);
@@ -47,6 +60,8 @@ function Chat() {
       return () => {
         clearTimeout(timer);
       };
+    }else{
+      onChatEnd()
     }
   }, [currentStep, playTyping]);
 

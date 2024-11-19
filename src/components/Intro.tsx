@@ -48,7 +48,7 @@ function Intro({ onDataTransfer }: any) {
           <div className="btn-cont flex justify-center items-center w-[60vw] sm:w-1/2 h-[40vh] sm:h-[300px] relative">
             <div
               style={{ filter: "blur(160px)" }}
-              className="absolute z-0 w-full h-full flex justify-evenly items-center bg-[#143808] rounded-full gap-2"
+              className="absolute z-0 w-full h-full flex justify-evenly items-center bg-[#143808] rounded-full g  ap-2"
             ></div>
             <button
               onClick={() => {
@@ -61,7 +61,8 @@ function Intro({ onDataTransfer }: any) {
             </button>
             <button
               onClick={() => {
-                setClick(false);
+                console.log("clicked");
+                setClick(true);
                 onDataTransfer(false);
               }}
               className="z-10 bg-green-500 border-[.5px] border-zinc-600 px-6 py-5 rounded-lg text-zinc-200 text-2xl relative overflow-hidden ml-2 font-roboto"

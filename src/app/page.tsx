@@ -1,26 +1,45 @@
 "use client";
 import Chat from "@/components/Chat";
 import Intro from "@/components/Intro";
-import { useState } from "react";
+import LandingPage from "@/components/LandingPage"; // Import LandingPage component
+import { useEffect, useState } from "react";
 
-const page = () => {
-  const [childData, setChildData] = useState(null);
-
-  const handleDataFromChild = (data: any) => {
-    setChildData(data);
+const Page = () => {
+  const [childData, setChildData] = useState<boolean>(); 
+  const [showChat, setShowChat] = useState<boolean>(); 
+  const [onChatEndDetails, setOnChatEndDetails] = useState<boolean>()
+  const handleDataFromChild = (data: boolean) => {
+    if(data){
+      setShowChat(data)
+      setChildData(data);
+    }else if(!data) {
+      setShowChat(data)
+      setChildData(data);
+    }
   };
-
+  useEffect(() => {
+    setTimeout(() => {
+      setShowChat(false)
+    }, 1000)
+  }, [onChatEndDetails])
+  
   return (
     <main>
       <div className="transition-container">
         {typeof childData === "boolean" ? (
           childData ? (
-            <div key="chat" className="page-transition">
-              <Chat />
-            </div>
+            showChat ? (
+              <div key="chat" className="page-transition">
+                <Chat onChatEnd={() => setOnChatEndDetails(true)} /> 
+              </div>
+            ) : (
+              <div key="landing-page" className="page-transition">
+                <LandingPage />
+              </div>
+            )
           ) : (
             <div key="intro" className="page-transition">
-              <Intro onDataTransfer={handleDataFromChild} />
+              <LandingPage/>
             </div>
           )
         ) : (
@@ -54,4 +73,5 @@ const page = () => {
     </main>
   );
 };
-export default page;
+
+export default Page;
